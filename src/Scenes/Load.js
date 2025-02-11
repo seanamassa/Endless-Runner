@@ -5,6 +5,7 @@ class Load extends Phaser.Scene {
 
     preload() {
 
+        console.log("Loading assets...");
         //this.load.path = './assets/'
 
         // Load graphics assets
@@ -16,7 +17,8 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-
+        console.log("Assets loaded. Moving to Play Scene...");
+        this.scene.start('playScene');
    
     }
 }

@@ -33,9 +33,7 @@ let h = game.config.height;
 const textSpacer = 64;
 
 // Player controls
-let cursors;
-let dashKey;
+let cursors
 
-// Dash jump properties
-const DASH_VELOCITY = 600;
+// Jump properties
 const JUMP_VELOCITY = -400;
