@@ -1,3 +1,26 @@
+/*
+Endless Runner Title: Cyber Ninja
+
+Created by Sean Massa
+
+The game is an endlesss sidescrolling game where the player, a ninja. has to 
+dodge shurikens and collect rice balls to increase your score. My creative tilt is...
+
+Features added:
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+
+
+
+
+*/
 let config = {
     parent: 'myGame',
     type: Phaser.AUTO,
