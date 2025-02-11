@@ -10,28 +10,33 @@ class Play extends Phaser.Scene {
         // Enable keyboard controls
         this.cursors = this.input.keyboard.createCursorKeys()
 
+        // Add scrolling background
+        this.background = this.add.tileSprite(0, -10, this.sys.game.config.width, this.sys.game.config.height, 'Background1').setOrigin(0, 0);
+ 
+        // Add ground
+        // Set up ground as a moving platform
+        this.ground = this.physics.add.staticGroup();
+        let groundHeight = 3000; // Adjust this based on your asset
+        this.groundSprite = this.add.tileSprite(0, this.sys.game.config.height - groundHeight, this.sys.game.config.width, groundHeight, 'ground').setOrigin(0, 1);
+        this.physics.add.existing(this.groundSprite, true);
+        //this.ground.create(1200, 1050, 'ground')//.setScale(2).refreshBody()
+     
         // Add player
         this.player = this.physics.add.sprite(150, 100, 'ninja').setScale(6)
         this.player.setCollideWorldBounds(true)
-        this.player.setGravityY(1000); // Adjust gravity to suit jumping
-        
+        this.player.setGravityY(1000); // Adjust gravity to suit jumping        
         // Set player to always move forward
         this.player.setVelocityX(200)
-        
-        // Add ground
-        this.ground = this.physics.add.staticImage(400, 250, 'ground')
 
-        //this.ground.create(1200, 1050, 'ground')//.setScale(2).refreshBody()
-        
         // Collision between player and ground
         this.physics.add.collider(this.player, this.ground)
         
         // Input keys
         this.cursors = this.input.keyboard.createCursorKeys()
 
-        if(!this.textures.exists('ninja')){
-            console.error("Ninja texture missing")
-        }
+        // Scrolling speed
+        this.scrollSpeed = 2
+
     }
 
     update() {
@@ -54,19 +59,25 @@ class Play extends Phaser.Scene {
 
         // Left movement
         if (this.cursors.left.isDown) {
-            this.player.setVelocityX(-160); // Move left
+            this.player.setVelocityX(-250); // Move left
             this.player.setFlipX(true); // Flip sprite to face left
         }
         // Right movement
         else if (this.cursors.right.isDown) {
-            this.player.setVelocityX(160); // Move right
+            this.player.setVelocityX(250); // Move right
             this.player.setFlipX(false); // Face right
         }
+
+        // Scroll background
+        this.background.tilePositionX += this.scrollSpeed * 0.5; // Move background slower for a parallax effect
+
+        // Scroll ground
+        this.groundSprite.tilePositionX += this.scrollSpeed; // Move ground at full speed
 
         // Jumping
         if (this.cursors.up.isDown && this.player.body.blocked.down) {
             this.player.setVelocityY(-1000); // Jump force
-            console.log("Jumping!"); // Debugging message
+            //console.log("Jumping!"); // Debugging message
         }
     }
 }
