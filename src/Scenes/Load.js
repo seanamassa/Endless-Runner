@@ -6,14 +6,13 @@ class Load extends Phaser.Scene {
     preload() {
 
         console.log("Loading assets...");
-        //this.load.path = './assets/'
+        this.load.path = './assets/'
 
         // Load graphics assets
-        this.load.image('ninja', './assets/ninja.png')        
-        this.load.image('ground', './assets/ground.png')         
-        this.load.image('Background1', './assets/Background1.png')
-
-
+        this.load.image('Background1', 'background.png')
+        this.load.image('ninja', 'ninja.png')        
+        this.load.image('ground', 'ground.png')         
+        this.load.image('riceball', 'riceball.png')
     }
 
     create() {
