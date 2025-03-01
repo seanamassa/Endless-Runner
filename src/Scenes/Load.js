@@ -22,7 +22,7 @@ class Load extends Phaser.Scene {
 
     create() {
         console.log("Assets loaded. Moving to Play Scene...");
-        this.scene.start('playScene');
+        this.scene.start('titleScene');
    
     }
 }

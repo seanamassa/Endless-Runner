@@ -39,7 +39,7 @@ let config = {
             debug: true // Set to true if you need to visualize hitboxes
         }
     },
-    scene: [ Load, Play, GameOver]
+    scene: [ Load, Title, Play, GameOver]
 }
 
 // Uncomment to reset stored high scores (useful for testing)
