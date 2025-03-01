@@ -72,7 +72,9 @@ class Play extends Phaser.Scene {
 
         // Score tracking
         this.score = 0
-        this.scoreText = this.add.text(20, 20, 'Score: 0', { fontSize: '32px', fill: '#fff' })
+        //this.scoreText = this.add.text(20, 20, 'Score: 0', { fontSize: '32px', fill: '#fff' })
+        this.scoreText = this.add.bitmapText(20, 20, 'manga', `SCORE: ${this.score}`, 32)
+    .setTint(0xffff00);
         
         // Speed increase timer
         this.time.addEvent({
@@ -173,7 +175,7 @@ class Play extends Phaser.Scene {
     collectPickup(player, pickup) {
         pickup.destroy();
         this.score += 10;
-        this.scoreText.setText(`Score: ${this.score}`)
+        this.scoreText.setText(`SCORE: ${this.score}`)
     }
 
     hitByShuriken(player, shuriken) {
