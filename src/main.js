@@ -39,24 +39,24 @@ let config = {
             debug: true // Set to true if you need to visualize hitboxes
         }
     },
-    scene: [ Load, Play ]
-};
+    scene: [ Load, Play, GameOver]
+}
 
 // Uncomment to reset stored high scores (useful for testing)
 // localStorage.clear();
 
 // Define game instance
-let game = new Phaser.Game(config);
+let game = new Phaser.Game(config)
 
 // Define global variables
-let centerX = game.config.width / 2;
-let centerY = game.config.height / 2;
-let w = game.config.width;
-let h = game.config.height;
-const textSpacer = 64;
+let centerX = game.config.width / 2
+let centerY = game.config.height / 2
+let w = game.config.width
+let h = game.config.height
+const textSpacer = 64
 
 // Player controls
 let cursors
 
 // Jump properties
-const JUMP_VELOCITY = -400;
+const JUMP_VELOCITY = -400
