@@ -18,6 +18,12 @@ class Load extends Phaser.Scene {
 
         // load bitmap font
         this.load.bitmapFont('manga', 'manga.png', 'manga.xml')
+        
+        // load audio
+        this.load.audio('bgm', 'music.wav')
+        this.load.audio('hitSound', 'Death1.wav') // Sound when hit by shuriken
+        this.load.audio('pickup', 'Apple Bite.mp3')  // Sound when collecting rice ball
+        this.load.audio('jump', 'jump_03.wav')  // Sound when jumping
     }
 
     create() {

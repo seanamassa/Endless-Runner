@@ -6,9 +6,12 @@ class Play extends Phaser.Scene {
     create() {
 
         console.log("Play Scene Started")
-
         // Enable keyboard controls
         this.cursors = this.input.keyboard.createCursorKeys()
+
+        // add music
+        this.bgm = this.sound.add('bgm', { volume: 0.5, loop: true }); 
+        this.bgm.play();
 
         // Add scrolling background
         this.background = this.add.tileSprite(0, -10, this.sys.game.config.width, this.sys.game.config.height, 'Background1').setOrigin(0, 0)
@@ -28,7 +31,7 @@ class Play extends Phaser.Scene {
         // Set player to always move forward
         this.player.setVelocityX(200)
         // Shrink the hitbox (adjust width and height)
-        this.player.setBodySize(this.player.width * 0.5, this.player.height * 0.7) // 50% width, 70% height
+        this.player.setBodySize(this.player.width * 0.4, this.player.height * 0.7) // 50% width, 70% height
 
         // Optionally, offset the hitbox if needed
         this.player.setOffset(this.player.width * 0.25, this.player.height * 0.3)
@@ -63,25 +66,27 @@ class Play extends Phaser.Scene {
             loop: true
         })     
         
-        
-
         // Collision detection between player and pickup
         this.physics.add.overlap(this.player, this.pickups, this.collectPickup, null, this)
         this.physics.add.overlap(this.player, this.shurikens, this.hitByShuriken, null, this)
 
+        // Load high score from local storage (or default to 0 if not set)
+        this.highScore = localStorage.getItem('highScore') ? parseInt(localStorage.getItem('highScore')) : 0;
 
         // Score tracking
         this.score = 0
         //this.scoreText = this.add.text(20, 20, 'Score: 0', { fontSize: '32px', fill: '#fff' })
         this.scoreText = this.add.bitmapText(20, 20, 'manga', `SCORE: ${this.score}`, 32)
-    .setTint(0xffff00);
+        .setTint(0xffff00)
+        // Display high score
+        this.highScoreText = this.add.bitmapText(20, 60, 'manga', `HIGH SCORE: ${this.highScore}`, 32).setTint(0xff0000);
         
         // Speed increase timer
         this.time.addEvent({
             delay: 2000, // Every 2 seconds
             callback: () => {
                 this.scrollSpeed += 0.5; // Adjust the increment as needed
-                console.log(`Scroll Speed Increased: ${this.scrollSpeed}`);
+                console.log(`Scroll Speed Increased: ${this.scrollSpeed}`)
             },
             callbackScope: this,
             loop: true
@@ -92,19 +97,20 @@ class Play extends Phaser.Scene {
         // Reset velocity so movement stops when no keys are pressed
         this.player.setVelocityX(0)
 
-        //console.log(`VelocityY: ${this.player.body.velocity.y}, On Ground: ${this.player.body.blocked.down}`);
+        // Jumping Logic: Allow up to 2 jumps (double jump)
+        if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
+        // Reset jump count if the player is on the ground
         if (this.player.body.blocked.down) {
-            //console.log("Player is on the ground!");
-            this.jumpCount = 0
+            this.jumpCount = 0;
         }
-
-        if (this.cursors.up.isDown) {
-            //console.log("Up key pressed!");
+        // Allow jump if jumpCount is less than 2
+        if (this.jumpCount < 2) {
+            this.player.setVelocityY(-800); // Apply jump force
+            this.jumpCount++;
+            console.log(`Jump Count: ${this.jumpCount}`);
+            // Play jump sound effect
+            this.sound.play('jump', { volume: 0.7 });
         }
-    
-        if (this.cursors.up.isDown && this.player.body.touching.down) {
-            //console.log("Jump executed!");
-            this.player.setVelocityY(-400)
         }
 
         // Left movement
@@ -169,26 +175,39 @@ class Play extends Phaser.Scene {
         shuriken.setVelocityX(-150) // Moves faster than pickups
         shuriken.body.allowGravity = false
         shuriken.setAngularVelocity(300) // Adjust for desired spin speed
+        // Adjust the hitbox: reduce its size to 50% of the sprite's original size
+        shuriken.body.setSize(shuriken.width * 0.5, shuriken.height * 0.5, true);
 
     }
 
     collectPickup(player, pickup) {
         pickup.destroy();
+        this.sound.play('pickup', { volume: 0.5 });
         this.score += 10;
         this.scoreText.setText(`SCORE: ${this.score}`)
     }
 
     hitByShuriken(player, shuriken) {
         console.log("Player hit by shuriken! Game over.")
-        
+            
+        // Play the hit sound
+        this.sound.play('hitSound', { volume: 0.7 })
+
+        // Check and update high score
+        if (this.score > this.highScore) {
+            this.highScore = this.score;
+            localStorage.setItem('highScore', this.highScore);
+        }
         // Stop all movement
         this.player.setVelocity(0, 0)
         this.physics.pause() // Freeze game physics
 
+        this.bgm.stop(); // Stop the music
+
         // Fade out the scene and transition to a game-over scene
         this.cameras.main.fadeOut(500, 0, 0, 0)
         this.time.delayedCall(1000, () => {
-            this.scene.start('gameOverScene', { score: this.score })
+            this.scene.start('gameOverScene', { score: this.score, highScore: this.highScore })
         })
     }
 

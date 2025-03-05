@@ -1,24 +1,21 @@
 /*
-Endless Runner Title: Cyber Ninja
-
+Game Title: Cyber Ninja
 Created by Sean Massa
+Approximate hours spent 20+
 
 The game is an endlesss sidescrolling game where the player, a ninja. has to 
-dodge shurikens and collect rice balls to increase your score. My creative tilt is...
+dodge shurikens and collect rice balls to increase your score.
 
 Features added:
-[]
-[]
-[]
-[]
-[]
-[]
-[]
-[]
-[]
-
-
-
+[X] Title Play and Game Over scenes
+[X] Player character with movement with arrow keys Jump with up arrow
+[X] Allow a double jump
+[X] Create rice balls as a pick up with a score counter
+[X] Create shurikens that can kill the player
+[X] Added faster scrolling with time for an increase in difficulty
+[X] Added Sound effects for the player jump, pickup, and death
+[X] Looping Background music
+[] Added animation to the player character using a spritesheet
 
 */
 let config = {
