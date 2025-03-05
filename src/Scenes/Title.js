@@ -12,7 +12,7 @@ class Title extends Phaser.Scene {
         this.add.bitmapText(centerX, centerY + -30, 'manga', 'DODGE SHURIKENS AND COLLECT RICE BALLS', 22).setOrigin(0.5)
         this.add.bitmapText(centerX, centerY + 30, 'manga', 'MOVE LEFT AND RIGHT WITH ARROW KEYS', 24).setOrigin(0.5)
         this.add.bitmapText(centerX, centerY + 90, 'manga', 'DOUBLE JUMP USING THE UP ARROW', 20).setOrigin(0.5)
-        this.add.bitmapText(centerX, centerY + 180, 'manga', 'PRESS UP ARROW START', 36).setOrigin(0.5)
+        this.add.bitmapText(centerX, centerY + 180, 'manga', 'PRESS UP ARROW START', 36).setOrigin(0.5).setTint(0xff0000)
 
         // set up cursor keys
         cursors = this.input.keyboard.createCursorKeys();  

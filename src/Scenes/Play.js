@@ -77,9 +77,9 @@ class Play extends Phaser.Scene {
         this.score = 0
         //this.scoreText = this.add.text(20, 20, 'Score: 0', { fontSize: '32px', fill: '#fff' })
         this.scoreText = this.add.bitmapText(20, 20, 'manga', `SCORE: ${this.score}`, 32)
-        .setTint(0xffff00)
+        .setTint(0x000000)
         // Display high score
-        this.highScoreText = this.add.bitmapText(20, 60, 'manga', `HIGH SCORE: ${this.highScore}`, 32).setTint(0xff0000);
+        this.highScoreText = this.add.bitmapText(440, 20, 'manga', `HIGH SCORE: ${this.highScore}`, 32).setTint(0x000000);
         
         // Speed increase timer
         this.time.addEvent({
