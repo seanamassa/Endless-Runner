@@ -33,7 +33,7 @@ let config = {
             gravity: {
                 y: 1000
             },
-            debug: false // Set to true if you need to visualize hitboxes
+            debug: true // Set to true if you need to visualize hitboxes
         }
     },
     scene: [ Load, Title, Play, GameOver]
