@@ -5,6 +5,8 @@ Approximate hours spent 20+
 
 The game is an endlesss sidescrolling game where the player, a ninja. has to 
 dodge shurikens and collect rice balls to increase your score.
+My creative tilt was I used my phone to record myself taking bites from an apple
+to use as a sound for the player collecting rice balls.
 
 Features added:
 [X] Title Play and Game Over scenes
